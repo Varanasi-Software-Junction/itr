@@ -1,5 +1,5 @@
 <?php
-
+use App\Book;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,4 +13,11 @@
 
 Route::get('/', function () {
     return view('welcome');
+});
+Route::get('/book', function () {
+	$book =new Book();
+	$book->bookname="Champak";
+	$book->price=1000;
+	$book->save();
+    return view('book');
 });
