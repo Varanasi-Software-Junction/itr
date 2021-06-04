@@ -1,5 +1,6 @@
 <?php
 use App\Book;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,10 +15,71 @@ use App\Book;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/addbook', function (Request $request) {
+	
+        $book = Book::create($request->all());
+		$book->save();
+
+        return response()->json($book, 200);
+    
+    
+});
+
+
+Route::get('/updatebook/{id}', function ($id,Request $request) {
+    try
+	{
+		$book=Book::find($id);
+		if ($book==null)
+			throw new Exception("Null");
+		$book->bookname=$request["bookname"];
+		$book->price=$request["price"];
+        $book->save();
+
+        return response()->json($book, 200);
+	}
+	catch(Exception $e)
+	{
+		return response()->json("Error", 200);
+	}
+		
+    });
+	
+
+
+
+
+Route::get('/delbook/{id}', function ($id) {
+    try
+	{
+		$book=Book::find($id);
+		if ($book==null)
+			throw new Exception("Null");
+        $book->delete();
+
+        return response()->json($book, 200);
+	}
+	catch(Exception $e)
+	{
+		return response()->json("Error", 200);
+	}
+		
+    });
+	
+	
 Route::get('/book', function () {
 	$book =new Book();
 	$book->bookname="Champak";
 	$book->price=1000;
 	$book->save();
     return view('book');
+});
+Route::get('/all', function () {
+	;
+    return book::all();
+});
+Route::get('/alljson', function () {
+	;
+    return response()->json(book::all(),200);
 });
