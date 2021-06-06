@@ -83,3 +83,6 @@ Route::get('/alljson', function () {
 	;
     return response()->json(book::all(),200);
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
