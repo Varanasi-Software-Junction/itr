@@ -1,5 +1,6 @@
 <?php
 use App\Book;
+use App\User;
 use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +17,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/addbook', function (Request $request) {
 	
         $book = Book::create($request->all());
 		$book->save();
 
         return response()->json($book, 200);
+    
+    
+});
+Route::get('/adduser', function (Request $request) {
+	
+        $user = User::create($request->all());
+		$user->save();
+
+        return response()->json($user, 200);
     
     
 });
@@ -75,9 +86,9 @@ Route::get('/book', function () {
 	$book->save();
     return view('book');
 });
-Route::get('/all', function () {
-	;
-    return book::all();
+
+Route::post('/all', function () {
+	    return "post";//book::all();
 });
 Route::get('/alljson', function () {
 	;
