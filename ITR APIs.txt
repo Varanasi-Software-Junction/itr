@@ -9,6 +9,21 @@ Protected route http://itrplus.com/itr/api/user
 Use for testing
 https://reqbin.com/
 
+itrplus.com/itr/api/addjsonuser
+POST /itr/api/addjsonuser HTTP/1.1
+Host: itrplus.com
+Content-Type: application/json
+Content-Length: 71
+
+{"name":"champak",
+"email":"champ@gmail.com",
+ "password":"123456789"
+}
+
+JSON login user
+itrplus.com/itr/api/sanctum/json/token
+
+
 
 
 

@@ -3,6 +3,7 @@ use App\Book;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\RegisterController;
+use Illuminate\Foundation\Validation\ValidationException;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +14,11 @@ use App\Http\Controllers\RegisterController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//**********************************************
+Route::post('/testjson', function (Request $request) {
+	  $users = json_decode($request->getContent(),true);
+	return $users["name"];
+});
 
 
 //**********************************************
@@ -35,6 +41,17 @@ $validatedData = $request->validate([
 
 //return response()->json([              'access_token' => $token,                   'token_type' => 'Bearer',]);
 });
+Route::post('/addjsonuser', function (Request $request) {
+	$request = json_decode($request->getContent(),true);
+	$request["password"]=Hash::make($request['password']);
+        $user = User::create($request);;
+     $user->save();
+
+        return response()->json($user, 200);
+    
+    
+});
+
 
 //********************************************
 
@@ -50,15 +67,30 @@ Route::get('/adduser', function (Request $request) {
 });
 
 
+Route::post('sanctum/json/token', function (Request $request) {
+   
+ $request= json_decode($request->getContent(), true);
+
+$email=$request["email"];
+    $user = User::where('email', $email)->first();
+
+    if (! $user || ! Hash::check($request["password"], $user->password)) {
+        return "error";
+    }
+	
+
+    return $user->createToken("android")->plainTextToken;
+	
+	//return "Hello";
+});
+
+
+
 
 Route::get('sanctum/token', function (Request $request) {
    
-  /* $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-        'device_name' => 'required',
-    ]);
-*/
+  
+
 $email=$request["email"];
     $user = User::where('email', $email)->first();
 
