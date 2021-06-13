@@ -27,15 +27,6 @@ Route::get('/addbook', function (Request $request) {
     
     
 });
-Route::get('/adduser', function (Request $request) {
-	
-        $user = User::create($request->all());
-		$user->save();
-
-        return response()->json($user, 200);
-    
-    
-});
 
 
 Route::get('/updatebook/{id}', function ($id,Request $request) {
