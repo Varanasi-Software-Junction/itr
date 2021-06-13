@@ -1,0 +1,19 @@
+Get Authorization Token 
+http://itrplus.com/itr/api/sanctum/token?email=champaksworld@gmail.com&name=android&password=12345678
+
+
+Register User
+https://itrplus.com/itr/api/adduser?name=popat&email=popatpg@gmail.com&password=123456789
+
+Protected route http://itrplus.com/itr/api/user
+Use for testing
+https://reqbin.com/
+
+
+
+
+
+
+
+
+
