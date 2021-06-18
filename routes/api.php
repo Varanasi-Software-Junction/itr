@@ -42,13 +42,19 @@ $validatedData = $request->validate([
 //return response()->json([              'access_token' => $token,                   'token_type' => 'Bearer',]);
 });
 Route::post('/addjsonuser', function (Request $request) {
+	try
+	{
 	$request = json_decode($request->getContent(),true);
 	$request["password"]=Hash::make($request['password']);
-        $user = User::create($request);;
+        $user = User::create($request);
      $user->save();
-
+$user["status"] = "ok";
         return response()->json($user, 200);
-    
+}
+    catch (\Exception $e) {
+$error=array("status"=>"failed","error"=>$e->getMessage());
+    return response()->json($error, 200);
+}
     
 });
 
@@ -75,11 +81,12 @@ $email=$request["email"];
     $user = User::where('email', $email)->first();
 
     if (! $user || ! Hash::check($request["password"], $user->password)) {
-        return "error";
+		$error=array("status"=>"failed",);
+        return response()->json($error, 200);;
     }
-	
-
-    return $user->createToken("android")->plainTextToken;
+	$user["status"] = "ok";
+	$user["token"] = $user->createToken("android")->plainTextToken;
+    return response()->json($user, 200);// $user->createToken("android")->plainTextToken;
 	
 	//return "Hello";
 });

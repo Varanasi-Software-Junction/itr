@@ -1,0 +1,3 @@
+ALTER TABLE personalinfo
+ADD CONSTRAINT FK_PersonOrder
+FOREIGN KEY (userid) REFERENCES users(ID)

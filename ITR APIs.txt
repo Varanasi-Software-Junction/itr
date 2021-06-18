@@ -25,7 +25,11 @@ itrplus.com/itr/api/sanctum/json/token
 
 
 
-
+{"name":"champak",
+"email":"champg@gmail.com",
+ "password":"123456789",
+ "phoneno":"9335874326"
+}
 
 
 
