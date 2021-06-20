@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     //
-	protected $fillable = ['bookname','price'];
+	protected $fillable = ['bookname','price','platform'];
 	 protected $table = 'books';
 	 protected $primaryKey= 'id';
 	 const CREATED_AT = 'creation_date';

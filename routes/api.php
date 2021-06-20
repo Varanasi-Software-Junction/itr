@@ -1,6 +1,7 @@
 <?php
 use App\Book;
 use App\User;
+use App\PersonalInfo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Foundation\Validation\ValidationException;
@@ -15,6 +16,50 @@ use Illuminate\Foundation\Validation\ValidationException;
 |
 */
 //**********************************************
+
+
+Route::post('/addbook', function (Request $request) {
+	try
+	{
+	 $request= json_decode($request->getContent(), true);
+        $book = Book::create($request);
+		$book->save();
+		$book["status"]="ok";
+        return response()->json($book, 200);
+    }
+	
+     catch (\Exception $e) {
+$error=array("status"=>"failed","error"=>$e->getMessage());
+    return response()->json($error, 200);
+}
+});
+
+
+//**********************************************
+
+Route::post('/addpersonlinfo', function (Request $request) {
+	
+	try
+	{
+	 $pi = PersonalInfo::create($request->all());
+		$pi->save();
+		$pi["status"]="ok";
+        return response()->json($pi, 200);
+	}
+	 catch (\Exception $e) {
+$error=array("status"=>"failed","error"=>$e->getMessage());
+    return response()->json($error, 200);
+}
+	
+	
+	
+});
+
+
+
+
+
+
 Route::post('/testjson', function (Request $request) {
 	  $users = json_decode($request->getContent(),true);
 	return $users["name"];
@@ -136,7 +181,6 @@ $email=$request["email"];
 	
 	//return "Hello";
 });
-
 
 
 
