@@ -42,8 +42,15 @@ Route::post('/addpersonlinfo', function (Request $request) {
 	try
 	{
 	 $pi = PersonalInfo::create($request->all());
+		$userid=$request["userid"];
+		$user=User::find($userid);
+		if ($user==null)
+		{
+			throw new Exception('No Parent Key');
+		}
 		$pi->save();
 		$pi["status"]="ok";
+		
         return response()->json($pi, 200);
 	}
 	 catch (\Exception $e) {
