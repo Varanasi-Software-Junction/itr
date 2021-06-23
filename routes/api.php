@@ -1,4 +1,5 @@
 <?php
+use App\EmpInfo;
 use App\Book;
 use App\User;
 use App\PersonalInfo;
@@ -16,6 +17,81 @@ use Illuminate\Foundation\Validation\ValidationException;
 |
 */
 //**********************************************
+Route::post('/allbooks' , function(Request $request) {
+	$request= json_decode($request->getContent(), true);
+	$price=$request["price"];
+	//return response()->json(book::all(),200);
+	return response()->json(book::all()->where('price','<=',$price),200);
+});
+
+
+
+Route::post('/hello' , function(Request $request) {
+	$request= json_decode($request->getContent(), true);
+	return "Hello" . $request["id"];
+});
+
+
+
+Route::post('/addemp', function (Request $request){
+	try
+	{
+		$request= json_decode($request->getContent(), true);
+		$empinfo=EmpInfo::create($request);
+		$empinfo->save();
+		$empinfo["status"]="ok";
+		return response()->json($empinfo,200);
+	}
+	catch(\Exception $f){
+		$error=array("status"=>"failed","error"=>$f->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+Route::post('/find', function (Request $request){
+	try
+	{
+		$request= json_decode($request->getContent(), true);
+		$id=$request["id"];
+		$emp = EmpInfo::find($id);
+		if($emp==null)
+		{
+			throw new Exception('Id Not Found');
+		}
+		
+		$emp["status"]="ok";
+		
+		return response()->json($emp, 200);
+	}
+	catch(\Exception $k) {
+		$error=array("status"=>"failed","error"=>$k->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+
+
+
+Route::post('/searchemp', function (Request $request){
+	try
+	{
+		
+		$empid = $request["empid"];
+		$emp = EmpInfo::find($empid);
+		if($emp==null)
+		{
+			throw new Exception('No Parent Key');
+		}
+		
+		$emp["status"]="ok";
+		
+		return response()->json($emp, 200);
+	}
+	catch(\Exception $k) {
+		$error=array("status"=>"failed","error"=>$k->getMessage());
+		return response()->json($error, 200);
+	}
+});
 
 
 Route::post('/addbook', function (Request $request) {
