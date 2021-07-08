@@ -71,6 +71,66 @@ Route::post('/find', function (Request $request){
 
 
 
+Route::post('/update', function (Request $request){
+	try
+	{
+		$request= json_decode($request->getContent(), true);
+		$id=$request["id"];
+		$emp = EmpInfo::find($id);
+		if($emp==null)
+		{
+			throw new Exception('Id Not Found');
+		}
+		$emp->empname=$request["empname"];
+		$emp->empemail=$request["empemail"];
+		$emp->emppass=$request["emppass"];
+		$emp->empadrs=$request["empadrs"];
+		$emp->save();
+		return response()->json($emp, 200);
+	}
+	catch(\Exception $k) {
+		$error=array("status"=>"failed","error"=>$k->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+Route::post('/delete', function (Request $request){
+	try
+	{
+		$request= json_decode($request->getContent(), true);
+		$id=$request["id"];
+		$emp = EmpInfo::find($id);
+		if($emp==null)
+		{
+			throw new Exception('Id Not Found');
+		}
+		$emp->delete();
+		return response()->json($emp, 200);
+	}
+	catch(\Exception $k) {
+		$error=array("status"=>"failed","error"=>$k->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+Route::post('/searching', function (Request $request){
+	try
+	{
+		$request= json_decode($request->getContent(), true);
+		//return response()->json(EmpInfo::all(),200);
+		$id=$request["id"];
+		return response()->json(EmpInfo::all()->where('id','<=',$id),200);
+	}
+	catch(\Exception $k) {
+		$error=array("status"=>"failed","error"=>$k->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+
+
+
+
 
 Route::post('/searchemp', function (Request $request){
 	try
@@ -117,8 +177,10 @@ Route::post('/addpersonlinfo', function (Request $request) {
 	
 	try
 	{
+		$request["sourceofincome"]=serialize( $request["sourceofincome"]);
 	 $pi = PersonalInfo::create($request->all());
 		$userid=$request["userid"];
+		
 		$user=User::find($userid);
 		if ($user==null)
 		{
@@ -126,7 +188,7 @@ Route::post('/addpersonlinfo', function (Request $request) {
 		}
 		$pi->save();
 		$pi["status"]="ok";
-		
+		$pi["sourceofincome"]=unserialize($pi["sourceofincome"]);
         return response()->json($pi, 200);
 	}
 	 catch (\Exception $e) {

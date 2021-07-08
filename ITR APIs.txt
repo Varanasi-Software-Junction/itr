@@ -31,9 +31,9 @@ itrplus.com/itr/api/sanctum/json/token
  "phoneno":"9335874326"
 }
 
-
+http://itrplus.com/itr/api/addpersonlinfo
 {
-    "financialyear": "2021",
+    "financialyear": "2020-2021",
     "firstname": "Champak",
     "lastname": "Roy",
     "mobileno": "9335874326",
@@ -45,7 +45,6 @@ itrplus.com/itr/api/sanctum/json/token
     "sourceofincome": "1000",
     "updated_date": "2021-06-21 11:36:39",
     "creation_date": "2021-06-21 11:36:39",
-    "id": 8,
     "status": "ok"
 }
 
