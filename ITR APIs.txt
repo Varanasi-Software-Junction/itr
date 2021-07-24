@@ -49,6 +49,23 @@ http://itrplus.com/itr/api/addpersonlinfo
 }
 
 
+itrplus.com/itr/api/addaddressinfo
+{
+    "flatno": "23",
+    "building": "H1",
+    "street": "Hermes Heritage",
+    "locality": "Near Shadyri Hospital",
+    "city": "Pune",
+    "country": "India",
+    "state": "Maharastra",
+    "pincode": "234567",
+    "itrid": "2",
+    "updated_date": "2021-07-24 13:23:32",
+    "creation_date": "2021-07-24 13:23:32",
+    "id": 3,
+    "status": "ok"
+}
+
 
 
 
