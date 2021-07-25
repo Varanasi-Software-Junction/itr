@@ -21,6 +21,30 @@ use Illuminate\Foundation\Validation\ValidationException;
 */
 //**********************************************
 
+Route::get('/addressfind', function (Request $request){
+	try
+	{
+		//$request= json_decode($request->getContent(), true);
+		$id=$request["id"];
+		$emp = AddressInfo::find($id);
+		if($emp==null)
+		{
+			throw new Exception('Id Not Found');
+		}
+
+		$emp["status"]="ok";
+
+		return response()->json($emp, 200);
+	}
+	catch(\Exception $k) {
+		$error=array("status"=>"failed","error"=>$k->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+
+
+
 
 
 
@@ -42,6 +66,7 @@ Route::post('/bankdetails', function(Request $request){
 		$pi = BankDetails::create($request->all());
 		$pi->save();
 		$pi["status"]="ok";
+		
 		
 		return response()->json($pi, 200);
 	}
@@ -68,6 +93,8 @@ Route::post('/addaddressinfo', function (Request $request) {
 		$pi->save();
 		$pi["status"]="ok";
 		
+
+		
         return response()->json($pi, 200);
 	}
 	 catch (\Exception $e) {
@@ -88,6 +115,7 @@ Route::post('/othersourceinc', function(Request $request){
 		
 		$pi->save();
 		$pi["status"]="ok";
+		
 		
 		return response()->json($pi, 200);
 	}
@@ -116,6 +144,8 @@ Route::post('/addpersonlinfo', function (Request $request) {
 		}
 		$pi->save();
 		$pi["status"]="ok";
+		
+
 		$pi["sourceofincome"]=unserialize($pi["sourceofincome"]);
         return response()->json($pi, 200);
 	}
@@ -167,6 +197,7 @@ Route::post('/addjsonuser', function (Request $request) {
         $user = User::create($request);
      $user->save();
 $user["status"] = "ok";
+
         return response()->json($user, 200);
 }
     catch (\Exception $e) {
