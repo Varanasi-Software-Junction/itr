@@ -34,7 +34,26 @@ Route::post('/hello' , function(Request $request) {
 
 
 
+//*************************************************************
 
+Route::post('/bankdetails', function(Request $request){
+	try{
+		
+		$pi = BankDetails::create($request->all());
+		$pi->save();
+		$pi["status"]="ok";
+		
+		return response()->json($pi, 200);
+	}
+	catch(\Exception $f){
+		$error=array("status"=>"failed","error"=>$f->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+
+
+//**********************************************
 
 
 Route::post('/addaddressinfo', function (Request $request) {
@@ -80,26 +99,7 @@ Route::post('/othersourceinc', function(Request $request){
 
 //*************************************************************
 
-//*************************************************************
 
-Route::post('/bankdetails', function(Request $request){
-	try{
-		
-		$pi = BankDetails::create($request->all());
-		$pi->save();
-		$pi["status"]="ok";
-		
-		return response()->json($pi, 200);
-	}
-	catch(\Exception $f){
-		$error=array("status"=>"failed","error"=>$f->getMessage());
-		return response()->json($error, 200);
-	}
-});
-
-
-
-//**********************************************
 
 Route::post('/addpersonlinfo', function (Request $request) {
 	

@@ -86,5 +86,24 @@ itrplus.com/itr/api/othersourceinc
     "status": "ok"
 }
 
+itrplus.com/itr/api/bankdetails
+{
+"bankname":"BOI",
+"ifsccode":"BKI34567884567567",
+"accountno":"23456789456783456783456",
+"accounttype":"saving",
+"userid":"25"
+}
+{
+    "bankname": "BOI",
+    "ifsccode": "BKI34567884567567",
+    "accountno": "23456789456783456783456",
+    "accounttype": "saving",
+    "userid": "25",
+    "updated_date": "2021-07-25 14:06:33",
+    "creation_date": "2021-07-25 14:06:33",
+    "id": 1,
+    "status": "ok"
+}
 
 
