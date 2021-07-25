@@ -66,6 +66,25 @@ itrplus.com/itr/api/addaddressinfo
     "status": "ok"
 }
 
+itrplus.com/itr/api/othersourceinc
+
+{
+"interestinc":"2023",
+"interestonrd":"H1",
+"otherinc": "Hermes Heritage",
+ "itrid":"2"
+}
+
+{
+    "interestinc": "2023",
+    "interestonrd": "H1",
+    "otherinc": "Hermes Heritage",
+    "itrid": "2",
+    "updated_date": "2021-07-24 15:01:36",
+    "creation_date": "2021-07-24 15:01:36",
+    "id": 3,
+    "status": "ok"
+}
 
 
 

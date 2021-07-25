@@ -4,6 +4,8 @@ use App\Book;
 use App\User;
 use App\PersonalInfo;
 use App\AddressInfo;
+use App\OtherSourceInc;
+use App\BankDetails;
 use Illuminate\Http\Request;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Foundation\Validation\ValidationException;
@@ -57,9 +59,43 @@ $error=array("status"=>"failed","error"=>$e->getMessage());
 	
 	
 });
+//*************************************************************
 
+Route::post('/othersourceinc', function(Request $request){
+	try{
+		
+		$pi = OtherSourceInc::create($request->all());
+		//$userid=$request["userid"];
+		
+		$pi->save();
+		$pi["status"]="ok";
+		
+		return response()->json($pi, 200);
+	}
+	catch(\Exception $f){
+		$error=array("status"=>"failed","error"=>$f->getMessage());
+		return response()->json($error, 200);
+	}
+});
 
+//*************************************************************
 
+//*************************************************************
+
+Route::post('/bankdetails', function(Request $request){
+	try{
+		
+		$pi = BankDetails::create($request->all());
+		$pi->save();
+		$pi["status"]="ok";
+		
+		return response()->json($pi, 200);
+	}
+	catch(\Exception $f){
+		$error=array("status"=>"failed","error"=>$f->getMessage());
+		return response()->json($error, 200);
+	}
+});
 
 
 
