@@ -21,6 +21,32 @@ use Illuminate\Foundation\Validation\ValidationException;
 */
 //**********************************************
 
+//**********************************************
+
+Route::get('/bankdetailsfind/{id}', function ($id,Request $request){
+	try
+	{
+		//$id=$request["id"];
+		$emp = BankDetails::find($id);
+		if($emp==null)
+		{
+			throw new Exception('Id Not Found');
+		}
+
+		$emp["status"]="ok";
+
+		return response()->json($emp, 200);
+	}
+	catch(\Exception $k) {
+		$error=array("status"=>"failed","error"=>$k->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+
+
+//*******************************************************************
+
 Route::get('/addressfind', function (Request $request){
 	try
 	{
@@ -44,7 +70,7 @@ Route::get('/addressfind', function (Request $request){
 
 
 
-
+//*******************************************************************
 
 
 

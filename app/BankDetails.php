@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BankDetails extends Model
 {
-	protected $fillable = ['id','bankname','ifsccode','accountno','accounttype','userid'];
+	protected $fillable = ['id','bankname','ifsccode','accountno','accounttype','userid','message'];
 	 protected $table = 'bankdetails';
 	 protected $primaryKey= 'id';
 	 const CREATED_AT = 'creation_date';
