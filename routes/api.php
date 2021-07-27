@@ -26,14 +26,22 @@ use Illuminate\Foundation\Validation\ValidationException;
 
 Route::post('/sendfile', function(Request $request){
 	try{
+		$filename ="dummy";
+		$request["filename"]=$filename;
 		
-		$pi = SendFile::create($request->all());
 		 if ($request->hasFile('filecontents')) {
+			 $pi = SendFile::create($request->all());
 			 $file = $request->file('filecontents');
-			 $filename = time().'_'.$file->getClientOriginalName();
+			 $filename =rand(10,100) . time().'_'.$file->getClientOriginalName();
 			 $file->move("public/product",$filename);
 			 $pi["filename"]=$filename;
 			 $pi["url"]="http://itrplus.com/itr/public/product/$filename";
+			 
+			 
+		 }
+		 else
+		 {
+			 	throw new Exception('No file selected');
 		 }
 		$pi->save();
 		$pi["status"]="ok";
