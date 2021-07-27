@@ -5,6 +5,7 @@ use App\User;
 use App\PersonalInfo;
 use App\AddressInfo;
 use App\OtherSourceInc;
+use App\SendFile;
 use App\BankDetails;
 use Illuminate\Http\Request;
 use App\Http\Controllers\RegisterController;
@@ -20,6 +21,37 @@ use Illuminate\Foundation\Validation\ValidationException;
 |
 */
 //**********************************************
+
+//*************************************************************
+
+Route::post('/sendfile', function(Request $request){
+	try{
+		
+		$pi = SendFile::create($request->all());
+		 if ($request->hasFile('filecontents')) {
+			 $file = $request->file('filecontents');
+			 $filename = time().'_'.$file->getClientOriginalName();
+			 $file->move("public/product",$filename);
+			 $pi["filename"]=$filename;
+			 $pi["url"]="http://itrplus.com/itr/public/product/$filename";
+		 }
+		$pi->save();
+		$pi["status"]="ok";
+		
+		
+		return response()->json($pi, 200);
+	}
+	catch(\Exception $f){
+		$error=array("status"=>"failed","error"=>$f->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+
+
+//**********************************************
+
+
 
 //**********************************************
 
