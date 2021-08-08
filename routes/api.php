@@ -318,34 +318,6 @@ Route::post('/bankdetails', function(Request $request){
 
 
 
-//**********************************************
-
-
-Route::post('/addaddressinfo', function (Request $request) {
-	
-	try
-	{
-		
-	 $pi = AddressInfo::create($request->all());
-		
-		
-		
-		$pi->save();
-		$pi["status"]="ok";
-		
-
-		
-        return response()->json($pi, 200);
-	}
-	 catch (\Exception $e) {
-$error=array("status"=>"failed","error"=>$e->getMessage());
-    return response()->json($error, 200);
-}
-	
-	
-	
-});
-//*************************************************************
 
 Route::post('/othersourceinc', function(Request $request){
 	try{
@@ -368,20 +340,93 @@ Route::post('/othersourceinc', function(Request $request){
 //*************************************************************
 
 
+//**********************************************
+Route::post('/updateaddressinfo', function (Request $request) {
+	
+	try
+	{
+			$id=$request["id"];
+		$itraddress=AddressInfo::find($id);
+		if ($itraddress==null)
+		{
+			throw new Exception('Address does not exist');
+		}
+		$itraddress["flatno"]=$request["flatno"];
+		$itraddress["building"]=$request["building"];
+		$itraddress["street"]=$request["street"];
+		$itraddress["locality"]=$request["locality"];
+		$itraddress["city"]=$request["city"];
+		$itraddress["country"]=$request["country"];
+		$itraddress["state"]=$request["state"];
+		$itraddress["pincode"]=$request["pincode"];
+	 
+		
+		
+		
+		$itraddress->save();
+		$itraddress["status"]="ok";
+		
+
+		
+        return response()->json($itraddress, 200);
+	}
+	 catch (\Exception $e) {
+$error=array("status"=>"failed","error"=>$e->getMessage());
+    return response()->json($error, 200);
+}
+	
+	
+	
+});
+//*************************************************************
+
+Route::post('/addaddressinfo', function (Request $request) {
+	
+	try
+	{
+			$itrid=$request["itrid"];
+		$itrpersonal=PersonalInfo::find($itrid);
+		if ($itrpersonal==null)
+		{
+			throw new Exception('ITR Id does not exist');
+		}
+		
+	 $pi = AddressInfo::create($request->all());
+		
+		
+		
+		$pi->save();
+		$pi["status"]="ok";
+		
+
+		
+        return response()->json($pi, 200);
+	}
+	 catch (\Exception $e) {
+$error=array("status"=>"failed","error"=>$e->getMessage());
+    return response()->json($error, 200);
+}
+	
+	
+	
+});
+//*************************************************************
 
 Route::post('/addpersonlinfo', function (Request $request) {
 	
 	try
 	{
-		$request["sourceofincome"]=serialize( $request["sourceofincome"]);
-	 $pi = PersonalInfo::create($request->all());
 		$userid=$request["userid"];
-		
 		$user=User::find($userid);
 		if ($user==null)
 		{
-			throw new Exception('No Parent Key');
+			throw new Exception('User Id does not exist');
 		}
+		$request["sourceofincome"]=serialize( $request["sourceofincome"]);
+	 $pi = PersonalInfo::create($request->all());
+		
+		
+		
 		$pi->save();
 		$pi["status"]="ok";
 		

@@ -1,3 +1,23 @@
+Update Address
+itrplus.com/itr/api/updateaddressinfo
+
+{
+    "flatno": "203",
+    "building": "H1",
+    "street": "Hermes Heritage",
+    "locality": "Near Shadyri Hospital",
+    "city": "Pune",
+    "country": "India",
+    "state": "Maharastra",
+    "pincode": "234967",
+    "itrid": "303",
+    "updated_date": "2021-07-24 13:23:32",
+    "creation_date": "2021-07-24 13:23:32",
+    "id": 3,
+    "status": "ok"
+}
+
+
 Get Authorization Token 
 http://itrplus.com/itr/api/sanctum/token?email=champaksworld@gmail.com&name=android&password=12345678
 
