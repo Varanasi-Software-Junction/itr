@@ -23,7 +23,6 @@ use Illuminate\Foundation\Validation\ValidationException;
 //**********************************************
 
 //*************************************************************
-
 Route::post('/sendfile', function(Request $request){
 	try{
 		$filename ="dummy";
@@ -59,7 +58,27 @@ Route::post('/sendfile', function(Request $request){
 
 //**********************************************
 
+//**********************************************
 
+Route::get('/sendfilefind/{id}', function ($id,Request $request){
+	try
+	{
+		//$id=$request["id"];
+		$emp = SendFile::find($id);
+		if($emp==null)
+		{
+			throw new Exception('Id Not Found');
+		}
+		//$emp["url"]=str_replace("\\","",$emp["url"]);
+		$emp["status"]="ok";
+
+		return response()->json($emp, 200);
+	}
+	catch(\Exception $k) {
+		$error=array("status"=>"failed","error"=>$k->getMessage());
+		return response()->json($error, 200);
+	}
+});
 
 //**********************************************
 
@@ -87,12 +106,168 @@ Route::get('/bankdetailsfind/{id}', function ($id,Request $request){
 
 //*******************************************************************
 
-Route::get('/addressfind', function (Request $request){
+Route::get('/addressfind/{$id}', function ($id,Request $request){
 	try
 	{
 		//$request= json_decode($request->getContent(), true);
 		$id=$request["id"];
-		$emp = AddressInfo::find($id);
+		//$emp = AddressInfo::find($id);
+		if($emp==null)
+		{
+			throw new Exception('Id Not Found');
+		}
+
+		$emp["status"]="ok";
+
+		return response()->json($emp, 200);
+	}
+	catch(\Exception $k) {
+		$error=array("status"=>"failed","error"=>$k->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+
+//*******************************************************************
+
+Route::get('/othersourceincfind/{$id}', function($id,Request $request){
+	
+	try
+	{
+		//$id=$request["id"];
+		$emp = OtherSourceInc::find($id);
+		if($emp==null)
+		{
+			throw new Exception('Id Not Found');
+		}
+
+		$emp["status"]="ok";
+
+		return response()->json($emp, 200);
+	}
+	catch(\Exception $k) {
+		$error=array("status"=>"failed","error"=>$k->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+//*******************************************************************
+Route::get('/addpersonlinfofind/{$id}', function($id,Request $request){
+	
+	try
+	{
+		//$id=$request["id"];
+		$emp = PersonalInfo::find($id);
+		if($emp==null)
+		{
+			throw new Exception('Id Not Found');
+		}
+
+		$emp["status"]="ok";
+
+		return response()->json($emp, 200);
+	}
+	catch(\Exception $k) {
+		$error=array("status"=>"failed","error"=>$k->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+//*******************************************************************
+Route::get('/registeruserfind/{$id}', function($id,Request $request){
+	
+	try
+	{
+		//$id=$request["id"];
+		$emp = User::find($id);
+		if($emp==null)
+		{
+			throw new Exception('Id Not Found');
+		}
+
+		$emp["status"]="ok";
+
+		return response()->json($emp, 200);
+	}
+	catch(\Exception $k) {
+		$error=array("status"=>"failed","error"=>$k->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+//*******************************************************************
+Route::get('/addjsonuserfind/{$id}', function($id,Request $request){
+	
+	try
+	{
+		$id=$request["id"];
+		$emp = User::find($id);
+		if($emp==null)
+		{
+			throw new Exception('Id Not Found');
+		}
+
+		$emp["status"]="ok";
+
+		return response()->json($emp, 200);
+	}
+	catch(\Exception $k) {
+		$error=array("status"=>"failed","error"=>$k->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+//*******************************************************************
+Route::get('/adduserfind', function(Request $request){
+	
+	try
+	{
+		$id=$request["id"];
+		$emp = User::find($id);
+		if($emp==null)
+		{
+			throw new Exception('Id Not Found');
+		}
+
+		$emp["status"]="ok";
+
+		return response()->json($emp, 200);
+	}
+	catch(\Exception $k) {
+		$error=array("status"=>"failed","error"=>$k->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+//*******************************************************************
+Route::get('/sanctumfind', function(Request $request){
+	
+	try
+	{
+		$id=$request["id"];
+		$emp = User::find($id);
+		if($emp==null)
+		{
+			throw new Exception('Id Not Found');
+		}
+
+		$emp["status"]="ok";
+
+		return response()->json($emp, 200);
+	}
+	catch(\Exception $k) {
+		$error=array("status"=>"failed","error"=>$k->getMessage());
+		return response()->json($error, 200);
+	}
+});
+
+//*******************************************************************
+Route::get('/find', function(Request $request){
+	
+	try
+	{
+		$id=$request["id"];
+		$emp = User::find($id);
 		if($emp==null)
 		{
 			throw new Exception('Id Not Found');
@@ -111,7 +286,6 @@ Route::get('/addressfind', function (Request $request){
 
 
 //*******************************************************************
-
 
 
 
